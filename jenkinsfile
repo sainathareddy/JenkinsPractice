@@ -5,7 +5,7 @@ node('node1') {
     }
     stage('build') {
         
-       sh 'mvn clean package'
+       sh ' ls'
     }
     
 }
