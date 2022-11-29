@@ -5,6 +5,7 @@ node('node1') {
     }
     stage('build') {
        sh 'echo $PATH' 
+       sh 'mvn clean package'
        
     }
     
