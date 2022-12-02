@@ -1,13 +1,16 @@
-node('node1') {
-    properties([pipelineTriggers([upstream('starterproject, ')])])
-    stage('git') {
-        git 'https://github.com/GitPracticeRepo/java11-examples.git'
-    
-                }
-    stage('build') {
-       sh 'echo $PATH' 
-       sh '/usr/local/apache-maven-3.8.6/bin/mvn clean package'
-       
+
+pipeline {
+    agent { label 'node1' }
+    triggers { upstream(upstreamProjects: 'starterproject', threshold: hudson.model.Result.SUCCESS) }
+    stages {
+        stage('scm') {
+            steps {
+                git 'https://github.com/GitPracticeRepo/java11-examples.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh '/usr/local/apache-maven-3.8.6/bin/mvn clean package'
+            }
+        }
     }
-    
-}
